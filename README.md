@@ -1,24 +1,82 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Creating a simple Ruby on Rails application using Devise
 
-Things you may want to cover:
+1) Creating your application :
 
-* Ruby version
+	$ rails new Student
+	$ cd Student
 
-* System dependencies
+2) Editing the Gemfile :
+	
+	gem 'mysql2'
 
-* Configuration
+	now make changes in Filepath : config/database.yml
 
-* Database creation
+	  adapter: mysql2
+	  pool: 5
+	  timeout: 5000
+	  username: root
+	  password: 1234
 
-* Database initialization
+	development:
+	  <<: *default
+	  
+	  database: mydb
 
-* How to run the test suite
+	
+	test:
+	  <<: *default
+	  
+	  database: mydb_testing
 
-* Services (job queues, cache servers, search engines, etc.)
+	production:
+	  <<: *default
+	  
+	  database: mydb
 
-* Deployment instructions
+3) bundle install
+4) rake db:create
 
-* ...
+finally we come to our main topic "devise"
+
+5) $ gem 'devise
+
+6) $ rails generate devise:install
+
+Creating Models :
+
+7) $ rails generate devise student
+
+8) $ rake db:migrate
+
+9) rails server
+
+user in http path 
+students/sign_up
+
+Here the sign-up form contains only 3 fields email,password & password confirmation,No we have to add the username to the sign-up form.
+
+10) rails generate migration add_username_to_students username:string
+
+11) $ rake db:migrate
+
+Creating Views :
+
+12) $ rails generate devise:views
+
+Once you run this command the devise will generate the whole view files for the students.check “app/views/devise” ,you could see the whole form structure for sign-in,sign-up,forgot password etc.
+
+13) $ rails generate model Profile
+
+14) $ rails generate controller home index
+
+15) app/config/routes.rb
+
+add the line
+
+root 'home#index'
+
+16) rails s 
+
+**************End*************************
